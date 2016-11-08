@@ -28,7 +28,7 @@ class Game {
     
     var currentPlayer: Player
     
-    var blocksArray: Array2D<Block>
+    var blocks: Array2D<Block>
     
     init() {
         
@@ -45,7 +45,7 @@ class Game {
         // make player one current player (could add a randomizer here)
         currentPlayer = playerOne
         
-        blocksArray = Array2D<Block>(columns: NumColumns, rows: NumRows)
+        blocks = Array2D<Block>(columns: NumColumns, rows: NumRows)
     }
     
     func beginGame() {
@@ -63,30 +63,27 @@ class Game {
     func resetGame() {
         
         let playerOneCornerCord = Player.randomCorner(notEqualTo: nil)
-        let playerTwoCornerCord = Player.randomCorner(notEqualTo: playerOneCornerCord)
+        (playerOne.column, playerOne.row) = playerOneCornerCord
         
-        playerOne.sprite?.position = CGPoint(x: playerOneCornerCord.0, y: playerOneCornerCord.1)
-        playerTwo.sprite?.position = CGPoint(x: playerTwoCornerCord.0, y: playerTwoCornerCord.1)
+        let playerTwoCornerCord = Player.randomCorner(notEqualTo: playerOneCornerCord)
+        (playerTwo.column, playerTwo.row) = playerTwoCornerCord
         
         let prizeCord = Prize.random()
-        prize.sprite?.position = CGPoint(x: prizeCord.0, y: prizeCord.1)
+        (prize.column, prize.row) = prizeCord
     }
     
     func blockAt(column: Int, row: Int) -> Block? {
         assert(column >= 0 && column < NumColumns)
         assert(row >= 0 && row < NumRows)
-        return blocksArray[column, row]
+        return blocks[column, row]
     }
     
-    func detectIllegalMove() -> Bool {
+    func detectIllegalMove(by player: Player) -> Bool {
         
-        let currentPlayersCurrentPosition = (currentPlayer.column, currentPlayer.row)
         let otherPlayer = returnOtherPlayer(currentPlayer: currentPlayer)
         
-        for block in otherPlayer.blocks {
-            if block.column == currentPlayersCurrentPosition.0 && block.row == currentPlayersCurrentPosition.0 {
-                return true
-            }
+        if (player.column, player.row) == (otherPlayer.column, otherPlayer.row) {
+            return true
         }
         
         return false

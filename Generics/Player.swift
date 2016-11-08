@@ -42,7 +42,7 @@ class Player: Hashable, CustomStringConvertible {
         self.column = column
         self.row = row
         
-        let intialBlock = Block(column: column, row: row, color: .red)
+        let intialBlock = Block(column: column, row: row, color: color)
         self.blocks.insert(intialBlock, at: 0)
     }
     
@@ -97,11 +97,9 @@ class Player: Hashable, CustomStringConvertible {
         let randomCol = cornerIndexes.sample()
         let randomRow = cornerIndexes.sample()
         
-        if let corner = corner, (randomCol, randomRow) == corner {
-            randomCorner(notEqualTo: corner)
-        }
+        guard let corner = corner, (randomCol, randomRow) == corner else { return (randomCol, randomRow) }
         
-        return (randomCol, randomRow)
+        return randomCorner(notEqualTo: corner)
     }
 }
 

@@ -35,7 +35,7 @@ class GameViewController: UIViewController, GameDelegate {
         game.delegate = self
         scene.game = game
         
-        scene.addBlocks()
+        scene.addTiles()
         
         // add players to scene
         scene.addPlayer(player: game.playerOne)
@@ -63,9 +63,6 @@ class GameViewController: UIViewController, GameDelegate {
         game.currentPlayer = game.returnOtherPlayer(currentPlayer: game.currentPlayer)
     }
     
-    func nextPlayer() {
-    }
-    
     func gameDidBegin(game: Game) {
         
         // update scores
@@ -80,19 +77,24 @@ class GameViewController: UIViewController, GameDelegate {
     
     func gameDidEnd(game: Game) {
         
-        scene.stopTicking()
         
-        // play endgame sound
-        //scene.playSound("Sounds/gameOver.mp3")
+        scene.stopTicking()
         
         // reset game
         game.resetGame()
+        
+        game.playerOne.sprite?.position = scene.pointFor(column: game.playerOne.column, row: game.playerOne.row)
+        game.playerTwo.sprite?.position = scene.pointFor(column: game.playerTwo.column, row: game.playerTwo.row)
+        game.prize.sprite?.position = scene.pointFor(column: game.prize.column, row: game.prize.row)
         
         // begin new game
         game.beginGame()
     }
     
     func gameDidMakeMove(game: Game) {
+        
+        // Add stuff to reflect player move on game
+        
         print("gameDidMakeMove")
     }
 }

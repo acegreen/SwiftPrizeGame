@@ -8,21 +8,21 @@
 
 import SpriteKit
 
-let blockSize: CGFloat = 50.0
-let blockSpace: CGFloat = 10.0
+let tileSize: CGFloat = 50.0
+let titleSpace: CGFloat = 10.0
 
-let tickLength = TimeInterval(1000)
+let tickLength = TimeInterval(600)
 
 class GameScene: SKScene {
     
     var game: Game!
     
     let gameLayer = SKNode()
-    let blockLayer = SKNode()
+    let tileLayer = SKNode()
     
     var tick:(() -> ())?
     var tickLengthMillis = tickLength
-    var lastTick:Date?
+    var lastTick: Date?
     
     var textureCache = Dictionary<String, SKTexture>()
     
@@ -38,35 +38,35 @@ class GameScene: SKScene {
         addChild(gameLayer)
         
         let layerPosition = CGPoint(
-            x: -blockSize - (4 * blockSpace) * CGFloat(NumColumns) / 2,
-            y: -blockSize - (4 * blockSpace) * CGFloat(NumRows) / 2)
+            x: -tileSize - (4 * titleSpace) * CGFloat(NumColumns) / 2,
+            y: -tileSize - (4 * titleSpace) * CGFloat(NumRows) / 2)
         
-        blockLayer.position = layerPosition
-        gameLayer.addChild(blockLayer)
+        tileLayer.position = layerPosition
+        gameLayer.addChild(tileLayer)
         
         // play game sound
-        //run(SKAction.repeatForever(SKAction.playSoundFileNamed("gameSound.mp3", waitForCompletion: true)))
+        run(SKAction.repeatForever(SKAction.playSoundFileNamed("gameSound.mp3", waitForCompletion: true)))
     }
     
     required init(coder aDecoder: NSCoder) {
         fatalError("NSCoder not supported")
     }
     
-    func addBlocks() {
+    func addTiles() {
         for row in 0..<NumRows {
             for column in 0..<NumColumns {
                 if game.blockAt(column: column, row: row) == nil {
-                    let blockNode = SKSpriteNode(imageNamed: "block")
-                    blockNode.size = CGSize(width: blockSize, height: blockSize)
-                    blockNode.position = pointFor(column: column, row: row)
-                    blockLayer.addChild(blockNode)
+                    let tileNode = SKSpriteNode(imageNamed: "tile")
+                    tileNode.size = CGSize(width: tileSize, height: tileSize)
+                    tileNode.position = pointFor(column: column, row: row)
+                    tileLayer.addChild(tileNode)
                 }
             }
         }
     }
     
     func addPlayer(player: Player) {
-        
+
         var texture = textureCache[player.color.spriteName]
         
         if texture == nil {
@@ -75,9 +75,9 @@ class GameScene: SKScene {
         }
         
         let sprite = SKSpriteNode(texture: texture)
-        sprite.size = CGSize(width: blockSize * 0.75, height: blockSize * 0.75)
+        sprite.size = CGSize(width: tileSize * 0.75, height: tileSize * 0.75)
         sprite.position = pointFor(column: player.column, row: player.row)
-        blockLayer.addChild(sprite)
+        tileLayer.addChild(sprite)
         player.sprite = sprite
     }
     
@@ -91,17 +91,22 @@ class GameScene: SKScene {
         }
         
         let sprite = SKSpriteNode(texture: texture)
-        sprite.size = CGSize(width: blockSize * 0.75, height: blockSize * 0.75)
+        sprite.size = CGSize(width: tileSize * 0.75, height: tileSize * 0.75)
         sprite.position = pointFor(column: prize.column, row: prize.row)
-        blockLayer.addChild(sprite)
+        tileLayer.addChild(sprite)
         prize.sprite = sprite
     }
     
     final func movePlayer(player: Player) {
+        
+        guard !game.detectIllegalMove(by: player) else { return }
+        
         player.sprite?.position = pointFor(column: player.column, row: player.row)
         
         if (player.column, player.row) == (game.prize.column, game.prize.row) {
             player.score += 1
+            // play endgame sound
+            playSound("score.mp3")
             game.endGame()
         }
     }
@@ -133,7 +138,7 @@ class GameScene: SKScene {
     
     func pointFor(column: Int, row: Int) -> CGPoint {
         return CGPoint(
-            x: CGFloat(column) * (blockSize + blockSpace) + (blockSize + blockSpace)/2,
-            y: CGFloat(row) * (blockSize + blockSpace) + (blockSize + blockSpace)/2)
+            x: CGFloat(column) * (tileSize + titleSpace) + (tileSize + titleSpace)/2,
+            y: CGFloat(row) * (tileSize + titleSpace) + (tileSize + titleSpace)/2)
     }
 }
