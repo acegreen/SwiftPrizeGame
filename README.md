@@ -49,3 +49,7 @@ player is unable to move to any other adjacent cell.
 *	The requirements could be made more clearer
 *	Example 1: “each player should start searching the grid by moving to adjacent cells”. should the players move at the same time, or one after the other? 
 *	Example 2: “The players should move at a rate that allows game progress to be observed visually“ can be more defined (0.5s etc.)
+
+## Credit(s): 
+https://www.raywenderlich.com/125311/make-game-like-candy-crush-spritekit-swift-part-1
+
