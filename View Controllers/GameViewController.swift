@@ -70,13 +70,12 @@ class GameViewController: UIViewController, GameDelegate {
         playerTwoScoreLabel.text = String(game.playerTwo.score)
         
         // set tick length
-        scene.tickLengthMillis = tickLength
+        scene.tickLengthMillis = Constants.tickLength
         
         scene.startTicking()
     }
     
     func gameDidEnd(game: Game) {
-        
         
         scene.stopTicking()
         

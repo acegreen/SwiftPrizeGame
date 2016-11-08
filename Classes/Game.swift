@@ -8,9 +8,6 @@
 
 import UIKit
 
-let NumColumns = 5
-let NumRows = 5
-
 protocol GameDelegate {
     func gameDidBegin(game: Game)
     func gameDidEnd(game: Game)
@@ -45,7 +42,7 @@ class Game {
         // make player one current player (could add a randomizer here)
         currentPlayer = playerOne
         
-        blocks = Array2D<Block>(columns: NumColumns, rows: NumRows)
+        blocks = Array2D<Block>(columns: Constants.numColumns, rows: Constants.numRows)
     }
     
     func beginGame() {
@@ -73,8 +70,8 @@ class Game {
     }
     
     func blockAt(column: Int, row: Int) -> Block? {
-        assert(column >= 0 && column < NumColumns)
-        assert(row >= 0 && row < NumRows)
+        assert(column >= 0 && column < Constants.numColumns)
+        assert(row >= 0 && row < Constants.numRows)
         return blocks[column, row]
     }
     

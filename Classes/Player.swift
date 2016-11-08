@@ -8,8 +8,6 @@
 
 import SpriteKit
 
-let cornerIndexes = [0, 4]
-
 class Player: Hashable, CustomStringConvertible {
     
     // players sprite node
@@ -94,8 +92,8 @@ class Player: Hashable, CustomStringConvertible {
     
     final class func randomCorner(notEqualTo corner: (Int, Int)?) -> (Int, Int) {
         
-        let randomCol = cornerIndexes.sample()
-        let randomRow = cornerIndexes.sample()
+        let randomCol = Constants.cornerIndexes.sample()
+        let randomRow = Constants.cornerIndexes.sample()
         
         guard let corner = corner, (randomCol, randomRow) == corner else { return (randomCol, randomRow) }
         

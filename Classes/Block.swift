@@ -30,10 +30,6 @@ enum BlockColor: Int, CustomStringConvertible {
     var description: String {
         return self.spriteName
     }
-    
-    static func random() -> BlockColor {
-        return BlockColor(rawValue:Int(arc4random_uniform(NumberOfColors)))!
-    }
 }
 
 class Block: Hashable, CustomStringConvertible {

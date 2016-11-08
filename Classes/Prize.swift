@@ -33,8 +33,8 @@ class Prize {
     
     final class func random() -> (Int, Int) {
         
-        let randomCol = Functions.randomInRange(low: 1, high: NumColumns - 1)
-        let randomRow = Functions.randomInRange(low: 1, high: NumRows - 1)
+        let randomCol = Functions.randomInRange(low: 1, high: Constants.numColumns - 1)
+        let randomRow = Functions.randomInRange(low: 1, high: Constants.numRows - 1)
         
         return (randomCol, randomRow)
     }

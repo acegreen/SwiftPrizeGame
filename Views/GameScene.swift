@@ -8,11 +8,6 @@
 
 import SpriteKit
 
-let tileSize: CGFloat = 50.0
-let titleSpace: CGFloat = 10.0
-
-let tickLength = TimeInterval(600)
-
 class GameScene: SKScene {
     
     var game: Game!
@@ -21,7 +16,7 @@ class GameScene: SKScene {
     let tileLayer = SKNode()
     
     var tick:(() -> ())?
-    var tickLengthMillis = tickLength
+    var tickLengthMillis = Constants.tickLength
     var lastTick: Date?
     
     var textureCache = Dictionary<String, SKTexture>()
@@ -38,8 +33,8 @@ class GameScene: SKScene {
         addChild(gameLayer)
         
         let layerPosition = CGPoint(
-            x: -tileSize - (4 * titleSpace) * CGFloat(NumColumns) / 2,
-            y: -tileSize - (4 * titleSpace) * CGFloat(NumRows) / 2)
+            x: -Constants.tileSize - (4 * Constants.titleSpace) * CGFloat(Constants.numColumns) / 2,
+            y: -Constants.tileSize - (4 * Constants.titleSpace) * CGFloat(Constants.numRows) / 2)
         
         tileLayer.position = layerPosition
         gameLayer.addChild(tileLayer)
@@ -53,11 +48,11 @@ class GameScene: SKScene {
     }
     
     func addTiles() {
-        for row in 0..<NumRows {
-            for column in 0..<NumColumns {
+        for row in 0..<Constants.numRows {
+            for column in 0..<Constants.numColumns {
                 if game.blockAt(column: column, row: row) == nil {
                     let tileNode = SKSpriteNode(imageNamed: "tile")
-                    tileNode.size = CGSize(width: tileSize, height: tileSize)
+                    tileNode.size = CGSize(width: Constants.tileSize, height: Constants.tileSize)
                     tileNode.position = pointFor(column: column, row: row)
                     tileLayer.addChild(tileNode)
                 }
@@ -75,7 +70,7 @@ class GameScene: SKScene {
         }
         
         let sprite = SKSpriteNode(texture: texture)
-        sprite.size = CGSize(width: tileSize * 0.75, height: tileSize * 0.75)
+        sprite.size = CGSize(width: Constants.tileSize * 0.75, height: Constants.tileSize * 0.75)
         sprite.position = pointFor(column: player.column, row: player.row)
         tileLayer.addChild(sprite)
         player.sprite = sprite
@@ -91,7 +86,7 @@ class GameScene: SKScene {
         }
         
         let sprite = SKSpriteNode(texture: texture)
-        sprite.size = CGSize(width: tileSize * 0.75, height: tileSize * 0.75)
+        sprite.size = CGSize(width: Constants.tileSize * 0.75, height: Constants.tileSize * 0.75)
         sprite.position = pointFor(column: prize.column, row: prize.row)
         tileLayer.addChild(sprite)
         prize.sprite = sprite
@@ -138,7 +133,7 @@ class GameScene: SKScene {
     
     func pointFor(column: Int, row: Int) -> CGPoint {
         return CGPoint(
-            x: CGFloat(column) * (tileSize + titleSpace) + (tileSize + titleSpace)/2,
-            y: CGFloat(row) * (tileSize + titleSpace) + (tileSize + titleSpace)/2)
+            x: CGFloat(column) * (Constants.tileSize + Constants.titleSpace) + (Constants.tileSize + Constants.titleSpace)/2,
+            y: CGFloat(row) * (Constants.tileSize + Constants.titleSpace) + (Constants.tileSize + Constants.titleSpace)/2)
     }
 }
