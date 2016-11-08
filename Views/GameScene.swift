@@ -101,13 +101,9 @@ class GameScene: SKScene {
         if (player.column, player.row) == (game.prize.column, game.prize.row) {
             player.score += 1
             // play endgame sound
-            playSound("score.mp3")
+            playSound(sound: "score.mp3")
             game.endGame()
         }
-    }
-    
-    func playSound(_ sound: String) {
-        run(SKAction.playSoundFileNamed(sound, waitForCompletion: false))
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -135,5 +131,9 @@ class GameScene: SKScene {
         return CGPoint(
             x: CGFloat(column) * (Constants.tileSize + Constants.titleSpace) + (Constants.tileSize + Constants.titleSpace)/2,
             y: CGFloat(row) * (Constants.tileSize + Constants.titleSpace) + (Constants.tileSize + Constants.titleSpace)/2)
+    }
+    
+    func playSound(sound: String) {
+        run(SKAction.playSoundFileNamed(sound, waitForCompletion: false))
     }
 }

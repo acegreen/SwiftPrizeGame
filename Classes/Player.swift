@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class Player: Hashable, CustomStringConvertible {
+class Player: CustomStringConvertible {
     
     // players sprite node
     var sprite: SKSpriteNode?
@@ -25,13 +25,8 @@ class Player: Hashable, CustomStringConvertible {
     // The players score
     var score = 0
     
-    // Hashable
-    var hashValue: Int {
-        return blocks.reduce(0) { $0.hashValue ^ $1.hashValue }
-    }
-    
     // Printable
-    var description:String {
+    var description: String {
         return "\(color) player current block: \(blocks[0])"
     }
     
@@ -62,19 +57,19 @@ class Player: Hashable, CustomStringConvertible {
     }
     
     final func moveDownByOneRow() {
-        shiftBy(0, rows:1)
+        shiftBy(0, rows: 1)
     }
     
     final func moveUpByOneRow() {
-        shiftBy(0, rows:-1)
+        shiftBy(0, rows: -1)
     }
     
     final func moveRightByOneColumn() {
-        shiftBy(1, rows:0)
+        shiftBy(1, rows: 0)
     }
     
     final func moveLeftByOneColumn() {
-        shiftBy(-1, rows:0)
+        shiftBy(-1, rows: 0)
     }
     
     final func shiftBy(_ columns: Int, rows: Int) {

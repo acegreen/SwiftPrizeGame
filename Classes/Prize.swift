@@ -13,7 +13,7 @@ class Prize {
     // prize sprite node
     var sprite: SKSpriteNode?
     
-    // The column and row representing the players current point
+    // The column and row representing the prize current place
     var column, row: Int
     
     // The players score
@@ -22,7 +22,7 @@ class Prize {
     var spriteName = "prize"
     
     // Printable
-    var description:String {
+    var description: String {
         return "prize current location: \(column), \(row)"
     }
     

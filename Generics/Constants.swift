@@ -19,4 +19,6 @@ class Constants {
     static let titleSpace: CGFloat = 10.0
     
     static let tickLength = TimeInterval(600)
+    
+    static let numberOfColors: UInt32 = 4
 }

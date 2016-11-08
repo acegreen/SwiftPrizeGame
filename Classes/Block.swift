@@ -8,8 +8,6 @@
 
 import SpriteKit
 
-let NumberOfColors: UInt32 = 4
-
 enum BlockColor: Int, CustomStringConvertible {
     
     case blue = 0, orange, purple, red
@@ -32,7 +30,7 @@ enum BlockColor: Int, CustomStringConvertible {
     }
 }
 
-class Block: Hashable, CustomStringConvertible {
+class Block: CustomStringConvertible {
     
     // Constants
     var color: BlockColor
@@ -45,10 +43,6 @@ class Block: Hashable, CustomStringConvertible {
     
     var spriteName: String {
         return color.description
-    }
-    
-    var hashValue: Int {
-        return self.column ^ self.row
     }
     
     var description: String {
