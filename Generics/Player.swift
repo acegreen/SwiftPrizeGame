@@ -41,9 +41,26 @@ class Player: Hashable, CustomStringConvertible {
         self.color = color
         self.column = column
         self.row = row
+        
+        let intialBlock = Block(column: column, row: row, color: .red)
+        self.blocks.insert(intialBlock, at: 0)
     }
     
-    final func makeMove() {
+    final func makeMove(towards prize: Prize) {
+        
+        let (prizeCol, prizeRow) = (prize.column, prize.row)
+        
+        guard (prizeCol, prizeRow) != (column, row) else { return }
+        
+        if prizeCol > column {
+            moveRightByOneColumn()
+        } else if prizeCol < column {
+            moveLeftByOneColumn()
+        } else if prizeRow < row {
+            moveUpByOneRow()
+        } else if prizeRow > row {
+            moveDownByOneRow()
+        }
     }
     
     final func moveDownByOneRow() {
@@ -65,16 +82,14 @@ class Player: Hashable, CustomStringConvertible {
     final func shiftBy(_ columns: Int, rows: Int) {
         self.column += columns
         self.row += rows
-        for block in blocks {
-            block.column += columns
-            block.row += rows
-        }
-    }
-    
-    final func moveTo(_ column: Int, row:Int) {
-        self.column = column
-        self.row = row
-        makeMove()
+        
+        let oldBlock = blocks[0]
+        oldBlock.color = .orange
+        
+        let newBlock = Block(column: self.column, row: self.row, color: .red)
+        blocks.insert(newBlock, at: 0)
+        
+        print(column, row)
     }
     
     final class func randomCorner(notEqualTo corner: (Int, Int)?) -> (Int, Int) {

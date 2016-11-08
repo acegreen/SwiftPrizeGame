@@ -56,12 +56,53 @@ class GameScene: SKScene {
         for row in 0..<NumRows {
             for column in 0..<NumColumns {
                 if game.blockAt(column: column, row: row) == nil {
-                    let blockNode = SKSpriteNode(imageNamed: "Block")
+                    let blockNode = SKSpriteNode(imageNamed: "block")
                     blockNode.size = CGSize(width: blockSize, height: blockSize)
                     blockNode.position = pointFor(column: column, row: row)
                     blockLayer.addChild(blockNode)
                 }
             }
+        }
+    }
+    
+    func addPlayer(player: Player) {
+        
+        var texture = textureCache[player.color.spriteName]
+        
+        if texture == nil {
+            texture = SKTexture(imageNamed: player.color.spriteName)
+            textureCache[player.color.spriteName] = texture
+        }
+        
+        let sprite = SKSpriteNode(texture: texture)
+        sprite.size = CGSize(width: blockSize * 0.75, height: blockSize * 0.75)
+        sprite.position = pointFor(column: player.column, row: player.row)
+        blockLayer.addChild(sprite)
+        player.sprite = sprite
+    }
+    
+    func addPrize(prize: Prize) {
+        
+        var texture = textureCache[prize.spriteName]
+        
+        if texture == nil {
+            texture = SKTexture(imageNamed: prize.spriteName)
+            textureCache[prize.spriteName] = texture
+        }
+        
+        let sprite = SKSpriteNode(texture: texture)
+        sprite.size = CGSize(width: blockSize * 0.75, height: blockSize * 0.75)
+        sprite.position = pointFor(column: prize.column, row: prize.row)
+        blockLayer.addChild(sprite)
+        prize.sprite = sprite
+    }
+    
+    final func movePlayer(player: Player) {
+        player.sprite?.position = pointFor(column: player.column, row: player.row)
+        
+        if (player.column, player.row) == (game.prize.column, game.prize.row) {
+            player.score += 1
+            game.endGame()
         }
     }
     
@@ -88,22 +129,6 @@ class GameScene: SKScene {
     
     func stopTicking() {
         lastTick = nil
-    }
-    
-    func addSprite(player: Player) {
-        
-        var texture = textureCache[player.color.spriteName]
-        
-        if texture == nil {
-            texture = SKTexture(imageNamed: player.color.spriteName)
-            textureCache[player.color.spriteName] = texture
-        }
-        
-        let sprite = SKSpriteNode(texture: texture)
-        sprite.size = CGSize(width: blockSize, height: blockSize)
-        sprite.position = pointFor(column: player.column, row: player.row)
-        blockLayer.addChild(sprite)
-        player.sprite = sprite
     }
     
     func pointFor(column: Int, row: Int) -> CGPoint {

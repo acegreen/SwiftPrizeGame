@@ -37,10 +37,17 @@ class GameViewController: UIViewController, GameDelegate {
         
         scene.addBlocks()
         
-        game.beginGame()
+        // add players to scene
+        scene.addPlayer(player: game.playerOne)
+        scene.addPlayer(player: game.playerTwo)
+        
+        // add prize
+        scene.addPrize(prize: game.prize)
         
         // Present the scene.
         skView.presentScene(scene)
+        
+        game.beginGame()
     }
     
     override var prefersStatusBarHidden : Bool {
@@ -50,6 +57,10 @@ class GameViewController: UIViewController, GameDelegate {
     func didTick() {
         
         // make a move for the right player
+        game.currentPlayer.makeMove(towards: game.prize)
+        scene.movePlayer(player: game.currentPlayer)
+        
+        game.currentPlayer = game.returnOtherPlayer(currentPlayer: game.currentPlayer)
     }
     
     func nextPlayer() {
@@ -64,25 +75,25 @@ class GameViewController: UIViewController, GameDelegate {
         // set tick length
         scene.tickLengthMillis = tickLength
         
-        // add players to scene
-        scene.addSprite(player: game.playerOne)
-        scene.addSprite(player: game.playerTwo)
+        scene.startTicking()
     }
     
     func gameDidEnd(game: Game) {
-        view.isUserInteractionEnabled = false
+        
         scene.stopTicking()
         
         // play endgame sound
         //scene.playSound("Sounds/gameOver.mp3")
+        
+        // reset game
+        game.resetGame()
         
         // begin new game
         game.beginGame()
     }
     
     func gameDidMakeMove(game: Game) {
-        
-        
+        print("gameDidMakeMove")
     }
 }
 

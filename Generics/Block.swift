@@ -39,7 +39,7 @@ enum BlockColor: Int, CustomStringConvertible {
 class Block: Hashable, CustomStringConvertible {
     
     // Constants
-    let color: BlockColor
+    var color: BlockColor
     
     // Variables
     var column: Int
