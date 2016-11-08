@@ -31,6 +31,7 @@ player is unable to move to any other adjacent cell.
 
 ## Outstanding requirement(s):
 *	As each player moves the grid should reflect where the player has been. Players cannot cross the trail  left by the other player. However, players can backtrack on their own trail or decline to move if the  player is unable to move to any other adjacent cell. 
+* If a player backtracks over its own trail, the cell it previously occupied should be cleared.
 
 ## Thought process and proposed method for getting the full solution working:
 *	The ground work for the player path is in the project (the blocks are being created and added as the players make their moves)
