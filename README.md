@@ -22,6 +22,7 @@ player is unable to move to any other adjacent cell.
 * If a player backtracks over its own trail, the cell it previously occupied should be cleared.
 * When one of the players finds the prize, update the score and start a new game.
 * Feel free to enhance the game as you like.
-Submission guidelines
+
+## Submission guidelines
 * We will accept and review partial solutions. If you submit a partial solution, please include a written explanation of your thought process and proposed method for getting the full solution working.
 * A git repo is the preferred method for submitting the project. However, you can submit your project in whatever format is most convenient.
