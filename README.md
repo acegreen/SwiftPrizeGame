@@ -26,3 +26,25 @@ player is unable to move to any other adjacent cell.
 ## Submission guidelines
 * We will accept and review partial solutions. If you submit a partial solution, please include a written explanation of your thought process and proposed method for getting the full solution working.
 * A git repo is the preferred method for submitting the project. However, you can submit your project in whatever format is most convenient.
+
+-------------------------------------------
+
+## Outstanding requirement(s):
+*	As each player moves the grid should reflect where the player has been. Players cannot cross the trail  left by the other player. However, players can backtrack on their own trail or decline to move if the  player is unable to move to any other adjacent cell. 
+
+## Thought process and proposed method for getting the full solution working:
+*	The ground work for the player path is in the project (the blocks are being created and added as the players make their moves)
+*	Use orange/purple textures to mimic the path of the red/blue players (lack of more appropriate assets)
+*	detectIllegalMove() would also do a for loop over all the otherPlayers.blocks, not just against the most recent move. This will avoid hitting the tail of the other player
+*	detectIllegalMove() should be done at the player.makeMove() and if illegal it could fallThrough() to another move direction until exhausted
+*	If exhausted, player should backtrack and I would make sure that the player.blocks[0] gets removed and reflected on the UI.
+*	Update the UI to more closely reflect the intended look (linked to suggestion below)
+*	Move score labels from ViewController to the SKScene for better layout (optionally)
+
+## Suggestions:
+*	The challenge took a little longer than expected, because we are starting from scratch
+*	I would suggest creating a sample project for the interviewers to work of. Including assets and potentially a template to lay the ground work
+*	This could cut down on the challenge from 4-6 to 3 hours or so, while still allowing for the important concepts to be captured
+*	The requirements could be made more clearer
+*	Example 1: “each player should start searching the grid by moving to adjacent cells”. should the players move at the same time, or one after the other? 
+*	Example 2: “The players should move at a rate that allows game progress to be observed visually“ can be more defined (0.5s etc.)
