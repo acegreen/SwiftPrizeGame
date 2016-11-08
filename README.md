@@ -1,6 +1,6 @@
 # SwiftPrizeGame
 
-![alt tag](https://cloud.githubusercontent.com/assets/10794609/20085018/0be816a2-a534-11e6-81b4-675fec14c146.png))
+![alt tag](https://cloud.githubusercontent.com/assets/10794609/20085018/0be816a2-a534-11e6-81b4-675fec14c146.png)
 
 ## Prerequisites
 Language: Swift
