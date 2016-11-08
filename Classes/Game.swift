@@ -25,7 +25,7 @@ class Game {
     
     var currentPlayer: Player
     
-    var blocks: Array2D<Block>
+    var tiles: Array2D<Block>
     
     init() {
         
@@ -42,7 +42,7 @@ class Game {
         // make player one current player (could add a randomizer here)
         currentPlayer = playerOne
         
-        blocks = Array2D<Block>(columns: Constants.numColumns, rows: Constants.numRows)
+        tiles = Array2D<Block>(columns: Constants.numColumns, rows: Constants.numRows)
     }
     
     func beginGame() {
@@ -69,10 +69,10 @@ class Game {
         (prize.column, prize.row) = prizeCord
     }
     
-    func blockAt(column: Int, row: Int) -> Block? {
+    func tileAt(column: Int, row: Int) -> Block? {
         assert(column >= 0 && column < Constants.numColumns)
         assert(row >= 0 && row < Constants.numRows)
-        return blocks[column, row]
+        return tiles[column, row]
     }
     
     func detectIllegalMove(by player: Player) -> Bool {

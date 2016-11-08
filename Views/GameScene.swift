@@ -50,7 +50,7 @@ class GameScene: SKScene {
     func addTiles() {
         for row in 0..<Constants.numRows {
             for column in 0..<Constants.numColumns {
-                if game.blockAt(column: column, row: row) == nil {
+                if game.tileAt(column: column, row: row) == nil {
                     let tileNode = SKSpriteNode(imageNamed: "tile")
                     tileNode.size = CGSize(width: Constants.tileSize, height: Constants.tileSize)
                     tileNode.position = pointFor(column: column, row: row)
